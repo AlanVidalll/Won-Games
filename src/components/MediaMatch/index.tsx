@@ -1,32 +1,32 @@
 import styled, { css } from 'styled-components'
 import media, { DefaultBreakpoints } from 'styled-media-query'
 
-type breakPoint = keyof DefaultBreakpoints
+type breakpoint = keyof DefaultBreakpoints
 
 export type MediaMatchProps = {
-  lessThan?: breakPoint
-  greaterThan?: breakPoint
+  lessThan?: breakpoint
+  greaterThan?: breakpoint
 }
 
 const mediaMatchModifiers = {
-  lessThan: (size: breakPoint) => css`
-    ${media.lessThan(size)`display:block`}
+  lessThan: (size: breakpoint) => css`
+    ${media.lessThan(size)` display: block `}
   `,
-  greaterThan: (size: breakPoint) => css`
-    ${media.greaterThan(size)`display:block`}
+
+  greaterThan: (size: breakpoint) => css`
+    ${media.greaterThan(size)` display: block `}
   `
 }
 
 export default styled.div<MediaMatchProps>`
   ${({ lessThan, greaterThan }) => css`
     display: none;
-
     ${!!lessThan && mediaMatchModifiers.lessThan(lessThan)}
     ${!!greaterThan && mediaMatchModifiers.greaterThan(greaterThan)}
   `}
 `
-{
-  /* <MediaMatch greaterThan="medium">
+
+/* <MediaMatch greaterThan="medium">
 
 
 //elemento vai aparecer somente no desktop
@@ -37,4 +37,3 @@ export default styled.div<MediaMatchProps>`
 //elemento vai aparecer somente no mobile
 </MediaMatch>
  */
-}
