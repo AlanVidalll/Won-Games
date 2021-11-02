@@ -1,9 +1,9 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import Main from '.'
-
+import { renderWithTheme } from 'utils/tests/helpers'
 describe('<Main>', () => {
   it('Should render the heading ', () => {
-    const { container } = render(<Main />)
+    const { container } = renderWithTheme(<Main />)
 
     expect(
       screen.getByRole('heading', { name: /react avançado/i })
@@ -13,8 +13,8 @@ describe('<Main>', () => {
   })
 })
 
-it('should rende the colors corrects', () => {
-  const { container } = render(<Main />)
+it('should render the colors corrects', () => {
+  const { container } = renderWithTheme(<Main />)
 
   expect(container.firstChild).toHaveStyle({ 'background-color': '#06092b' })
 })
