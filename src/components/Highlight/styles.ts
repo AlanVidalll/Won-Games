@@ -44,6 +44,7 @@ export const Wrapper = styled.section<WrapperProps>`
     ${media.greaterThan('medium')`
       height:32rem;
     `}
+
     ${wrapperModifiers[alignment!]()}
   `}
 `
