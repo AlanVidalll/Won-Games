@@ -7,14 +7,13 @@ import Button from '.'
 
 describe('<Button>', () => {
   it('Should render the medium button by default ', () => {
-    const { container } = renderWithTheme(<Button>Buy Now</Button>)
+    renderWithTheme(<Button>Buy Now</Button>)
 
     expect(screen.getByRole('button', { name: /Buy Now/i })).toHaveStyle({
       height: '4rem',
       padding: '0.8rem 3.2rem',
       'font-size': '1.4rem' // toda propriedade que tenha hifen deve ser colocada entre aspas
     })
-    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('Should render the small button is passed ', () => {
