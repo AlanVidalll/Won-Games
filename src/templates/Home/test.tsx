@@ -30,11 +30,8 @@ describe('<Home>', () => {
       screen.getByRole('heading', { name: /follow us/i })
     ).toBeInTheDocument()
     expect(screen.getAllByRole('img', { name: /won games/i })).toHaveLength(2)
-  })
 
-  it('should render sections', () => {
-    renderWithTheme(<Home {...props} />)
-
+    // Sections
     expect(
       screen.getByRole('heading', { name: /most popular/i })
     ).toBeInTheDocument()
@@ -46,11 +43,8 @@ describe('<Home>', () => {
     expect(
       screen.getByRole('heading', { name: /free games/i })
     ).toBeInTheDocument()
-  })
 
-  it('should render section elements', () => {
-    renderWithTheme(<Home {...props} />)
-    // banner
+    // Sections Elements
     expect(screen.getAllByText(/defy death 1/i)).toHaveLength(1)
     // card game ( 5 sections com 4 cards cada = 5x4 = 20)
     expect(screen.getAllByText(/population zero/i)).toHaveLength(5)
