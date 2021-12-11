@@ -5,7 +5,9 @@ import Checkbox from '.'
 
 describe('<CheckBox>', () => {
   it('Should render with label', () => {
-    renderWithTheme(<Checkbox label="Checkbox label" labelFor="check" />)
+    const { container } = renderWithTheme(
+      <Checkbox label="Checkbox label" labelFor="check" />
+    )
 
     // Pegando input a partir do papel dele.
     expect(screen.getByRole('checkbox')).toBeInTheDocument()
@@ -15,6 +17,8 @@ describe('<CheckBox>', () => {
 
     // Pegando a label através do texto da mesma.
     expect(screen.getByText(/Checkbox label/i)).toHaveAttribute('for', 'check')
+
+    expect(container.firstChild).toMatchSnapshot()
   })
   it('Should render without label', () => {
     renderWithTheme(<Checkbox />)
@@ -66,9 +70,14 @@ describe('<CheckBox>', () => {
       expect(onCheck).toHaveBeenCalledWith(false)
     })
   })
-  it('should be ', async () => {
+
+  it('should be accessible with tab', () => {
     renderWithTheme(<Checkbox label="Checkbox" labelFor="Checkbox" />)
 
     expect(document.body).toHaveFocus()
+
+    userEvent.tab()
+
+    expect(screen.getByLabelText(/checkbox/i)).toHaveFocus()
   })
 })
