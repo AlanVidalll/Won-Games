@@ -3,7 +3,7 @@ import React from 'react'
 import Checkbox, { CheckBoxProps } from '.'
 
 export default {
-  title: 'CheckBox',
+  title: 'Form/CheckBox',
   component: Checkbox,
   argTypes: {
     onCheck: { action: 'checked' }
