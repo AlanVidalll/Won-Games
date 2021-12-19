@@ -28,6 +28,7 @@ describe('<Base>', () => {
         <h1>Heading</h1>
       </Base>
     )
+
     // testing Menu component Mock
     expect(screen.getByTestId(/Mock Menu/i)).toBeInTheDocument()
 
