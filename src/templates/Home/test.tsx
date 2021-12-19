@@ -10,45 +10,44 @@ import Home from '.'
 
 const props = {
   banners: bannerMock,
-  newGames: [gamesMock[0]],
+  newGames: gamesMock,
   mostPopularHighlight: highlightMock,
-  mostPopularGames: [gamesMock[0]],
-  upcommingGames: [gamesMock[0]],
+  mostPopularGames: gamesMock,
+  upcommingGames: gamesMock,
   upcommingHighligth: highlightMock,
-  upcommingMoreGames: [gamesMock[0]],
-  freeGames: [gamesMock[0]],
+  upcommingMoreGames: gamesMock,
+  freeGames: gamesMock,
   freeHighligth: highlightMock
 }
+
+// Mocking component ShowCase
+jest.mock('../../components/ShowCase', () => {
+  return {
+    __esModule: true,
+    default: function Mock() {
+      return <div data-testid="Mock ShowCase"></div>
+    }
+  }
+})
+
+// Mocking component Banner Slider
+jest.mock('../../components/BannerSlider', () => {
+  return {
+    __esModule: true,
+    default: function Mock() {
+      return <div data-testid="Mock Banner Slider"></div>
+    }
+  }
+})
 
 describe('<Home>', () => {
   it('Should render menu and footer ', () => {
     renderWithTheme(<Home {...props} />)
 
-    expect(screen.getByLabelText(/open menu/i)).toBeInTheDocument()
+    // testing Banner Slider component Mock
+    expect(screen.getByTestId(/Mock Banner Slider/i)).toBeInTheDocument()
 
-    expect(
-      screen.getByRole('heading', { name: /follow us/i })
-    ).toBeInTheDocument()
-    expect(screen.getAllByRole('img', { name: /won games/i })).toHaveLength(2)
-
-    // Sections
-    expect(
-      screen.getByRole('heading', { name: /most popular/i })
-    ).toBeInTheDocument()
-
-    expect(
-      screen.getByRole('heading', { name: /upcomming/i })
-    ).toBeInTheDocument()
-
-    expect(
-      screen.getByRole('heading', { name: /free games/i })
-    ).toBeInTheDocument()
-
-    // Sections Elements
-    expect(screen.getAllByText(/defy death 1/i)).toHaveLength(1)
-    // card game ( 5 sections com 4 cards cada = 5x4 = 20)
-    expect(screen.getAllByText(/population zero/i)).toHaveLength(5)
-    // highlight
-    expect(screen.getAllByText(/read dead is back/i)).toHaveLength(3)
+    // testing ShowCase component Mock
+    expect(screen.getAllByTestId(/Mock ShowCase/i)).toHaveLength(5)
   })
 })

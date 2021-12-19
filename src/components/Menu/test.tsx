@@ -36,14 +36,14 @@ describe('<Menu>', () => {
     renderWithTheme(<Menu />)
     expect(screen.queryByText(/my Account/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/wishlist/i)).not.toBeInTheDocument()
-    expect(screen.getByText(/log in now/i)).toBeInTheDocument()
     expect(screen.getByText(/sign up/i)).toBeInTheDocument()
+    expect(screen.getAllByText(/sign in/i)).toHaveLength(2)
   })
   it('Should show my accont and wishlist  when logged in ', () => {
     renderWithTheme(<Menu username="Alan" />)
     expect(screen.getByText(/my Account/i)).toBeInTheDocument()
     expect(screen.getByText(/wishlist/i)).toBeInTheDocument()
-    expect(screen.queryByText(/log in now/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/sign in/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/sign up/i)).not.toBeInTheDocument()
 
     //getByText => espera que o elemento exista
