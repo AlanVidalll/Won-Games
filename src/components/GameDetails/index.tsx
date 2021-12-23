@@ -12,6 +12,7 @@ export type GameDetailsProps = {
   developer: string
   platforms: Platform[]
   releaseDate: '2020-11-21T23:00:00'
+  publisher: string
   rating: Rating
   genres: string[]
 }
@@ -20,6 +21,7 @@ const GameDetails = ({
   platforms,
   developer,
   releaseDate,
+  publisher,
   rating,
   genres
 }: GameDetailsProps) => {
@@ -28,6 +30,7 @@ const GameDetails = ({
     mac: <Apple title="Mac" size={18} />,
     windows: <Windows title="Windows" size={18} />
   }
+
   return (
     <S.Wrapper>
       <MediaMatch greaterThan="small">
@@ -61,7 +64,7 @@ const GameDetails = ({
         </S.Block>
         <S.Block>
           <S.Title>Publisher</S.Title>
-          <S.Description>2K</S.Description>
+          <S.Description>{publisher}</S.Description>
         </S.Block>
         <S.Block>
           <S.Title>Rating</S.Title>
