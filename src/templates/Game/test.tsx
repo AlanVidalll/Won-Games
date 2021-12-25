@@ -1,50 +1,115 @@
 import 'match-media-mock'
 
 import { renderWithTheme } from '../../utils/tests/helpers'
-import Game from '.'
-import gamesMock from '../../components/GameCardSlider/mock'
-import highLightMock from '../../components/Highlight/mock'
+import { screen } from '@testing-library/react'
+import galleryMock from 'components/Gallery/mock'
+import gameInfoMock from 'components/GameInfo/mock'
+import gameDetailsMock from 'components/GameDetails/mock'
+import gamesMock from 'components/GameCardSlider/mock'
+import highlightMock from 'components/Highlight/mock'
 
-const descriptionHTML = `
-<img src="https://items.gog.com/not_a_cp/ENG_product-page-addons-2020_yellow_on_black.png"><br>
-* Exclusive Digital Comic - Cyberpunk 2077: Big City Dreams will be available in English only.
-<hr><p class="module">Korean Voiceover will be added on 11th December 2020.</p><br><img alt="" src="https://items.gog.com/not_a_cp/EN/EN-About-the-Game.png"><br><br><b>Cyberpunk 2077</b> is an open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification. You play as V, a mercenary outlaw going after a one-of-a-kind implant that is the key to immortality. You can customize your character’s cyberware, skillset and playstyle, and explore a vast city where the choices you make shape the story and the world around you.
-<br><br><img alt="" src="https://items.gog.com/not_a_cp/EN/EN-Mercenary-Outlaw.png"><br><br>
-Become a cyberpunk, an urban mercenary equipped with cybernetic enhancements and build your legend on the streets of Night City.
-<br><br><img alt="" src="https://items.gog.com/not_a_cp/EN/EN-City-of-the-Future.png"><br><br>
-Enter the massive open world of Night City, a place that sets new standards in terms of visuals, complexity and depth.
-<br><br><img alt="" src="https://items.gog.com/not_a_cp/EN/EN-Eternal-Life.png"><br><br>
-Take the riskiest job of your life and go after a prototype implant that is the key to immortality.
-<p class="description__copyrights">
-CD PROJEKT®, Cyberpunk®, Cyberpunk 2077® are registered trademarks of CD PROJEKT S.A. © 2019
-CD PROJEKT S.A. All rights reserved. All other copyrights and trademarks are the property of their
-respective owners.
-</p>`
+import Game, { GameTemplateProps } from '.'
+import { GameDetailsProps } from 'components/GameDetails'
+
+const props: GameTemplateProps = {
+  cover: 'bg-image.jpg',
+  gameInfo: gameInfoMock,
+  gallery: galleryMock,
+  description: `<h1>Custom HTML</h1>`,
+  details: gameDetailsMock as GameDetailsProps,
+  upcomingGames: gamesMock,
+  upcomingHighlight: highlightMock,
+  recommendedGames: gamesMock
+}
+
+jest.mock('components/Menu', () => ({
+  __esModule: true,
+  default: function Mock() {
+    return <div data-testid="Mock Menu" />
+  }
+}))
+
+jest.mock('components/Gallery', () => ({
+  __esModule: true,
+  default: function Mock() {
+    return <div data-testid="Mock Gallery" />
+  }
+}))
+
+jest.mock('components/GameDetails', () => ({
+  __esModule: true,
+  default: function Mock() {
+    return <div data-testid="Mock GameDetails" />
+  }
+}))
+
+jest.mock('components/GameInfo', () => ({
+  __esModule: true,
+  default: function Mock() {
+    return <div data-testid="Mock GameInfo" />
+  }
+}))
+
+jest.mock('components/Showcase', () => ({
+  __esModule: true,
+  default: function Mock() {
+    return <div data-testid="Mock Showcase" />
+  }
+}))
 
 describe('<Game>', () => {
-  it('Should render the heading ', () => {
-    renderWithTheme(
-      <Game
-        cover={''}
-        gameInfo={{
-          title: '',
-          description: '',
-          price: ''
-        }}
-        description={descriptionHTML}
-        details={{
-          developer: 'CD PROJEKT RED',
-          releaseDate: '2020-11-21T23:00:00',
-          platforms: ['windows'],
-          publisher: 'CD PROJEKT RED',
-          rating: 'BR18',
-          genres: ['Action', 'Role-playing']
-        }}
-        upcomingGames={gamesMock}
-        upcomingHighlight={highLightMock}
-        recommendGames={gamesMock}
-      />
+  it('Should render the template with component', () => {
+    renderWithTheme(<Game {...props} />)
+
+    expect(screen.getByTestId('Mock Gallery')).toBeInTheDocument()
+    expect(screen.getByTestId('Mock GameDetails')).toBeInTheDocument()
+    expect(screen.getByTestId('Mock GameInfo')).toBeInTheDocument()
+    expect(screen.getAllByTestId('Mock Showcase')).toHaveLength(2)
+    expect(screen.getByText(/custom html/i)).toBeInTheDocument()
+  })
+
+  it('should not render the gallery if no image', () => {
+    renderWithTheme(<Game {...props} gallery={undefined} />)
+
+    expect(screen.queryByTestId('Mock Gallery')).not.toBeInTheDocument()
+  })
+
+  it('should not render the gallery on mobile', () => {
+    renderWithTheme(<Game {...props} />)
+
+    expect(screen.getByTestId('Mock Gallery').parentElement).toHaveStyle({
+      display: 'none'
+    })
+
+    expect(screen.getByTestId('Mock Gallery').parentElement).toHaveStyleRule(
+      'display',
+      'block',
+      {
+        media: '(min-width:768px)'
+      }
     )
-    //expect(screen.getByRole('heading', { name: /Game/i })).toBeInTheDocument()
+  })
+
+  it('should render the cover image', () => {
+    renderWithTheme(<Game {...props} />)
+
+    const cover = screen.getByRole('image', { name: /cover/i })
+
+    expect(screen.getByRole('image', { name: /cover/i })).toHaveStyle({
+      backgroundImage: 'url(bg-image.jpg)',
+      height: '39.5rem'
+    })
+
+    expect(cover).toHaveStyleRule('height', '70rem', {
+      media: '(min-width: 768px)'
+    })
+
+    expect(cover).toHaveStyleRule(
+      'clip-path',
+      'polygon(0 0,100% 0,100% 100%,0 85%)',
+      {
+        media: '(min-width: 768px)'
+      }
+    )
   })
 })
