@@ -54,7 +54,7 @@ export async function getStaticProps() {
       },
       upcomingGames: gamesMock,
       upcomingHighlight: highLightMock,
-      recommendGames: gamesMock
+      recommendedGames: gamesMock
     }
   }
 }
