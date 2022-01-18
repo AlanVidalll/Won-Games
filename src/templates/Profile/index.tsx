@@ -3,7 +3,7 @@ import * as S from './styles'
 import Base from '../../templates/Base'
 import { Container } from '../../components/Container'
 import Heading from '../../components/Heading'
-import ProfileMenu from 'components/ProfileMenu'
+import ProfileMenu from '../../components/ProfileMenu'
 
 export type ProfileTemplateProps = {
   children: React.ReactNode
