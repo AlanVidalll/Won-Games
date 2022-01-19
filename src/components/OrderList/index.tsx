@@ -14,7 +14,9 @@ const OrderList = ({ items = [] }: OrdersListProps) => (
     </Heading>
 
     {items.length ? (
-      items.map((item) => <GameItem key={item.dowloadLink} {...item} />)
+      items.map((item, index) => (
+        <GameItem key={`${item.dowloadLink} ${index}`} {...item} />
+      ))
     ) : (
       <Empty
         title="You have no orders yet"
