@@ -1,7 +1,7 @@
-import ExploreSidebar, { ItemProps } from 'components/ExplorerSidebar'
-import GameCard, { GameCardProps } from 'components/GameCard'
-import { Grid } from 'components/Grid'
-import Base from 'templates/Base'
+import ExploreSidebar, { ItemProps } from '../../components/ExplorerSidebar'
+import GameCard, { GameCardProps } from '../../components/GameCard'
+import { Grid } from '../../components/Grid'
+import Base from '../../templates/Base'
 import * as S from './styles'
 
 import { KeyboardArrowDown as ArrowDown } from '@styled-icons/material-outlined/KeyboardArrowDown'

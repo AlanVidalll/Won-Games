@@ -3,7 +3,7 @@ import { renderWithTheme } from '../../utils/tests/helpers'
 import gamesMock from '../../components/GameCardSlider/mock'
 import filterItemsMock from '../../components/ExplorerSidebar/mock'
 
-import Games from '.'
+import Games from './'
 
 jest.mock('templates/Base', () => ({
   __esModule: true,

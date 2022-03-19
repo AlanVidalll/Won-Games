@@ -1,4 +1,4 @@
-import { Container } from 'components/Container'
+import { Container } from '../../components/Container'
 import styled, { css } from 'styled-components'
 import media from 'styled-media-query'
 
