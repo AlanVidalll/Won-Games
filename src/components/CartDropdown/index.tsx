@@ -6,11 +6,11 @@ import CartList from '../CartList'
 
 import * as S from './styles'
 
-export type CardDropdownProps = {
+export type CartDropdownProps = {
   items?: GameItemProps[]
   total?: string
 }
-const CardDropdown = ({ items = [], total }: CardDropdownProps) => (
+const CartDropdown = ({ items = [], total }: CartDropdownProps) => (
   <S.Wrapper>
     <Dropdown title={<CartIcon quantity={items.length} />}>
       <CartList items={items} total={total} hasButton />
@@ -18,4 +18,4 @@ const CardDropdown = ({ items = [], total }: CardDropdownProps) => (
   </S.Wrapper>
 )
 
-export default CardDropdown
+export default CartDropdown
